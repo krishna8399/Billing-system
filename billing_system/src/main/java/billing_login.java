@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -36,6 +39,7 @@ public class billing_login extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -47,11 +51,14 @@ public class billing_login extends javax.swing.JFrame {
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 400, 65, -1));
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField1.setText("jTextField1");
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 340, 212, -1));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 340, 200, -1));
 
         jPasswordField1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jPasswordField1.setText("jPasswordField1");
         getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 400, 199, -1));
 
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -66,6 +73,11 @@ public class billing_login extends javax.swing.JFrame {
         login.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/login.png"))); // NOI18N
         login.setText("Login");
+        login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginActionPerformed(evt);
+            }
+        });
         getContentPane().add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 500, -1, -1));
 
         close.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -95,8 +107,29 @@ public class billing_login extends javax.swing.JFrame {
     }//GEN-LAST:event_closeActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
+         // TODO add your handling code here:
+         if(jCheckBox1.isSelected())
+         {
+             jPasswordField1.setEchoChar((char)0);
+         }
+         else
+             jPasswordField1.setEchoChar('*');
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
+        // TODO add your handling code here:
+        if(jTextField1.getText().equals("bms") && jPasswordField1.getText().equals("admin"))
+        {
+            setVisible(false);
+            new home().setVisible(true);
+        } 
+        else
+            JOptionPane.showMessageDialog(null,"Incorrect Username or Password");                         //error in joption
+    }//GEN-LAST:event_loginActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
