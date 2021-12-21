@@ -1,4 +1,7 @@
 import java.awt.Color;
+import Project.ConnectionProvider;
+import java.sql.*;
+import javax.swing.JOptionPane;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -142,6 +145,11 @@ public class newBuyer extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/save.png"))); // NOI18N
         jButton1.setText("Save");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 361, -1, -1));
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -260,6 +268,27 @@ public class newBuyer extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String name=jTextField1.getText();
+        String contactNo=jTextField2.getText();
+        String email=jTextField3.getText();
+        String address=jTextField4.getText();
+        String gender=(String)jComboBox1.getSelectedItem();
+        try{
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            st.executeUpdate("insert into buyer value('"+name+"','"+contactNo+"','"+email+"','"+address+"','"+gender+"')");
+            JOptionPane.showMessageDialog(null,"Sucessfully Updated");
+            setVisible(false);
+            new newBuyer().setVisible(true);
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,"Mobile number already exist");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
