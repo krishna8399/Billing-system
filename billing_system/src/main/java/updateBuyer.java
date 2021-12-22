@@ -1,5 +1,6 @@
 import java.sql.*;
 import Project.ConnectionProvider;
+import javax.swing.JOptionPane;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -65,6 +66,8 @@ public class updateBuyer extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Contact No");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 105, -1, -1));
+
+        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 105, 206, -1));
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -109,12 +112,19 @@ public class updateBuyer extends javax.swing.JFrame {
 
         jTextField5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 257, 199, -1));
+
+        jTextField6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         getContentPane().add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(231, 291, 199, -1));
         getContentPane().add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 317, 582, 10));
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/save.png"))); // NOI18N
         jButton2.setText("Update");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 360, -1, -1));
 
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -157,7 +167,53 @@ public class updateBuyer extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String contactNo=jTextField1.getText();
+        try
+        {
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery("Select *from buyer where contactNo='"+contactNo+"'");
+            if(rs.next())
+            {
+                jTextField2.setText(rs.getString(1));
+                jTextField3.setText(rs.getString(2));
+                jTextField4.setText(rs.getString(3));
+                jTextField5.setText(rs.getString(4));
+                jTextField6.setText(rs.getString(5));
+                jTextField1.setEditable(false);
+            }
+            else
+                JOptionPane.showMessageDialog(null,"contact does not exist");
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,e);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        String contactNo1=jTextField1.getText();
+        String name=jTextField2.getText();
+        String contactNo=jTextField3.getText();
+        String email=jTextField4.getText();
+        String address=jTextField5.getText();
+        String gender=jTextField6.getText();
+        try
+        {
+            
+            Connection con=ConnectionProvider.getCon();
+            Statement st=con.createStatement();
+            st.executeUpdate("Update buyer set name='"+name+"',contactNo='"+contactNo+"',email='"+email+"',address='"+address+"',gender='"+gender+"',where contactNo='"+contactNo1+"'");
+            JOptionPane.showMessageDialog(null,"Successfully updated");
+            setVisible(false);
+            new updateBuyer().setVisible(true);            
+        }
+        catch(Exception e)
+        {
+        JOptionPane.showMessageDialog(null,e);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
